@@ -7,6 +7,7 @@ COPY . /app
 
 RUN apt-get update && apt-get install -y rubber texlive-lang-french
 RUN yarn global add serve
+RUN chmod +x /app/compile.sh
 RUN /app/compile.sh
 
 EXPOSE 80
