@@ -151,7 +151,7 @@ La solution du puzzle que les mineurs doivent résoudre est en réalité un hash
 
 Les mineurs forment un block à partir des contrats de la \textit{memory pool} des nodes.
 
-Si le hash n'est pas compris dans cet intervalle, les mineurs calculent à nouveau un hash du block en concatenant un \textit{nounce} différent. C'est un nombre arbitraire qui permet uniquement de générer un hash différent en conservant les valeurs du block.
+Si le hash n'est pas compris dans cet intervalle, les mineurs calculent à nouveau un hash du block en concatenant un \textit{nonce} différent. C'est un nombre arbitraire qui permet uniquement de générer un hash différent en conservant les valeurs du block.
 
 Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% du réseau est honnête.
 
@@ -210,7 +210,7 @@ Nous utiliserons différents éditeurs de code tels que VIM, VS Code, ou Rider.
 Nous utiliserons les technologies suivantes pour le développement de la blockchain :
 \begin{itemize}
 \begin{samepage}
-    \item IPFS : hébergement et partage de fichiers en peer-to-peer
+    \item LevelDB : base de données clé/valeur
     \item ECDSA : algorithme de signature digitale
     \item SHA-256 : algorithme de hash
 \end{samepage}
