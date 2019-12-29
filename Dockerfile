@@ -11,4 +11,4 @@ RUN chmod +x /app/compile.sh
 RUN /app/compile.sh
 
 EXPOSE 80
-CMD ["serve", "-s", "output", "-p", "80"]
+CMD ["serve", "-s", "docs", "-p", "80"]

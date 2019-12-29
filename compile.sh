@@ -5,5 +5,5 @@ do
     rubber -d $f
 done
 
-mkdir output
-mv *.pdf output/
+mkdir docs
+mv *.pdf docs/
