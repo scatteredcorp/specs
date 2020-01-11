@@ -1,7 +1,8 @@
 #!/bin/sh
 
-for d in /app/specifications/*.tex
+for f in /app/specifications/*.tex
 do
+    echo "compiling $f"
     rubber -d $f
 done
 
