@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for f in /app/*.tex
+for d in /app/specifications/**.tex
 do
     rubber -d $f
 done

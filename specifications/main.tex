@@ -3,18 +3,49 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 % Uncomment the following line to allow the usage of graphics (.png, .jpg)
-%\usepackage{graphicx}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{xcolor}
+
+\definecolor{background}{HTML}{13181e}
+\definecolor{green}{HTML}{32bba9}
+
+\usepackage[sfdefault,thin]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+\usepackage{sectsty}
+\usepackage[titles]{tocloft}
+
+
+
+\sectionfont{\color{green}}  % sets colour of sections
+\subsectionfont{\color{green}}  % sets colour of sections
+\subsubsectionfont{\color{green}}
+\allsectionsfont{\color{green}}
 
 % Start the document
 \begin{document}
-\title{Decentralized Marble Game}
-\author{Scattered Corporation}
 
+\makeatletter
+    \begin{titlepage}
+        \begin{center}
+            \pagecolor{background}\afterpage{\nopagecolor}
+            \color{white}
+            \includegraphics[width=0.5\linewidth]{shape.png}\\[10ex]
+            {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
+            {\LARGE Scattered Corporation}\\[50ex] 
 
-\maketitle
+            {\large \@date}
+        \end{center}
+    \end{titlepage}
+\makeatother
+\thispagestyle{empty}
 
 \newpage
+\begin{center}
+\color{white}
+\pagecolor{background}\afterpage{\nopagecolor}
 \tableofcontents
+\end{center}
 \newpage
 
 % Create a new 1st level heading
