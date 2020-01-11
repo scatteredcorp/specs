@@ -114,8 +114,6 @@ La création d'une plateforme centralisée permettant aux joueurs de trouver un 
 \subsubsection*{}
 Lors de la création de la partie, les joueurs doivent donner une ou plusieurs billes aux \textit{mineurs} afin de traiter la transaction (\textit{transaction fee}). Cette taxe permet aux mineurs d'être rémunérés pour leur travail.
 
-La bille que le joueur choisit est en réalité le hash d'une \textit{claim transaction} ainsi que son emplacement dans celle-ci (voir section Fin de partie).
-
 \subsection{Source d'entropie}
 Lorsque la partie est créée, des obstacles sont aléatoirement placés sur le terrain pour ajouter de la difficulté au jeu de billes. Comme dans la vraie vie, il peut y avoir des trous, des arbres, des obstacles. Comment pouvons-nous générer un nombre aléatoire dans une Blockchain ?
 Nous ne pouvons-pas générer de nombres aléatoires sur les nodes car le résultat serait différent pour tout le monde, alors nous devons utiliser une autre source d'entropie.
@@ -146,12 +144,12 @@ Pour éviter des problèmes de précision, la nouvelle position de la bille n'es
 Plus la partie est longue, plus le calcul de la position de la bille est coûteux en ressources, les taxes de transactions seront alors de plus en plus élevées. Les joueurs doivent se mettre d'accord en début de partie du nombre de tours maximum, si ce nombre est depassé pendant la partie, celle-ci se termine et les joueurs reprennent leur bille.
 
 \subsection{Fin de partie}
-Lorsqu'un joueur parvient à toucher la bille de l'autre, celui-ci gagne la partie. Pour récupérer ses gains (la bille de l'adversaire ainsi que sa propre bille), le joueur doit diffuser sur la blockchain une \textit{claim transaction}\footnote{Une claim transaction est comparable à un \textit{UTXO} du Bitcoin. Cette transaction prend un ou plusieurs inputs : la bille de l'adversaire et la mise du joueur, et un ou plusieurs outputs, en général la clé publique de celui qui reçoit les gains, le gagnant.}. Tant que le gagnant n'a pas diffusé cette transaction, il ne peut pas récupérer les mises.
+Lorsqu'un joueur parvient à toucher la bille de l'autre, celui-ci gagne la partie. Pour récupérer ses gains (la bille de l'adversaire ainsi que sa propre bille), le joueur doit diffuser sur la blockchain une \textit{claim transaction}. Tant que le gagnant n'a pas diffusé cette transaction, il ne peut pas récupérer les mises.
 
 Ainsi pour vérifier l'appartenance d'une bille, les nodes doivent uniquement parcourir la liste des \textit{claim transactions} au lieu de recalculer l'état de la partie et vérifier que les billes se touchent. 
 Cela permet également de constituer rapidement l'historique d'appartenance de la bille. 
 
-Seul le gagnant peut diffuser cette transacion, et celui-ci peut décider d'envoyer ses gains à soi-même, ou à quelqu'un d'autre.
+Ce contrat peut être diffusé uniquement si la partie est terminée, et la clé publique de la signature correspond à la clé publique du gagnant.
 
 \subsection{Nodes}
 Une \textit{node} est un ordinateur connecté à tout le réseau de la blockchain. Elle a un rôle majeur sur la sécurité du réseau.
@@ -186,7 +184,7 @@ Si le hash n'est pas compris dans cet intervalle, les mineurs calculent à nouve
 
 Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% du réseau est honnête.
 
-Si un utilisateur malveillant voulait essayer de falsifier une transaction en l'ajoutant soi-même à la blockchain, c'est-à-dire en minant le block soi-même, il devrait alors résoudre ce puzzle extrêmement compliqué seul. De plus, aucune node n'accepterai cette transaction, sauf si l'utilisateur possède plus de la moitié des ordinateurs du réseau (\textit{51\% attack}) car l'utilisateur pourrait ainsi corrompre le consensus.
+Si un utilisateur malveillant voulait essayer de falsifier une transaction en l'ajoutant soi-même à la blockchain, c'est-à-dire en minant le block soi-même, il devrait alors résoudre ce puzzle extrêmement compliqué seul. De plus, aucune node n'accepterai cette transaction, sauf si l'utilisateur possède plus de la moitié des ordinateurs du réseau (\textit{51\% attack}) car l'utilisateur pourrait ainsi corrompre le consensus et former une nouvelle blockchain.
 Cette attaque est extrêmement peu probable.
 
 \subsubsection{Ajustement de la difficulté}
