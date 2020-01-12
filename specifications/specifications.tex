@@ -2,6 +2,8 @@
 % Comment the following line to NOT allow the usage of umlauts
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
 % Uncomment the following line to allow the usage of graphics (.png, .jpg)
 \usepackage{graphicx}
 \usepackage{afterpage}
@@ -32,9 +34,9 @@
             \color{white}
             \includegraphics[width=0.5\linewidth]{shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
-            {\LARGE Scattered Corporation}\\[50ex] 
+            {\LARGE Scattered Corporation}\\[40ex] 
 
-            {\large \@date}
+            {\large Projet EPITA 2020}
         \end{center}
     \end{titlepage}
 \makeatother
@@ -112,7 +114,9 @@ Ce modèle est moins couteux pour le joueur car l'accord entre les deux joueurs 
 La création d'une plateforme centralisée permettant aux joueurs de trouver un accord est possible. La centralisation de cette plateforme ne pose pas de problèmes sur l'aspect décentralisé du jeu en lui-même.
 
 \subsubsection*{}
+
 Lors de la création de la partie, les joueurs doivent donner une ou plusieurs billes aux \textit{mineurs} afin de traiter la transaction (\textit{transaction fee}). Cette taxe permet aux mineurs d'être rémunérés pour leur travail.
+
 
 \subsection{Source d'entropie}
 Lorsque la partie est créée, des obstacles sont aléatoirement placés sur le terrain pour ajouter de la difficulté au jeu de billes. Comme dans la vraie vie, il peut y avoir des trous, des arbres, des obstacles. Comment pouvons-nous générer un nombre aléatoire dans une Blockchain ?
@@ -212,6 +216,69 @@ En plus de ces nouvelles billes, le mineur récupère toutes les taxes des trans
 
 Tous les X blocks (210 000 blocks pour Bitcoin $\approx$ 4\ ans), les récompenses des mineurs sont divisées par deux jusqu'à que la totalité des billes soient distribuées.
 La prochaine récompense serait de 500 billes grises, 50 billes bleues, et 25 billes rouges.
+
+\section{Contrats}
+\subsection*{Placement de billes}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+ \hline
+octets & 1 & 1 & 8 & ... & 1 & 8\\ 
+ \hline
+    données & \# types & type & quantité & ... & type & quantité \\ 
+ \hline
+\end{tabular}
+\subsection{Création de la partie}
+\subsubsection{Double signature}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & ? & ? & 8 & 128\\ 
+ \hline
+    données & version & type contrat & taxe (billes) & billes J1 & billes J2 & nonce & signatures\\ 
+ \hline
+\end{tabular}
+
+\subsubsection{Invitation et acceptation}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & 20 & ? & ? & 8 & 64\\ 
+ \hline
+    données & version & type contrat & taxe (billes) & adresse J2 & billes J1 & billes J2 & nonce & signature\\ 
+ \hline
+\end{tabular}\\ \break
+
+\begin{tabular}{ |c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & 32 & 8 & 64\\ 
+ \hline
+    données & version & type contrat & taxe (billes) & contrat ID & nonce & signature\\ 
+ \hline
+\end{tabular}
+
+\subsection{Lancé de bille}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & 1 & 1 & 8 & 64 \\ 
+ \hline
+    données & version & type contrat & taxe (billes) & X & Z & nonce & signature\\ 
+ \hline
+\end{tabular}
+
+\subsection{Claim transaction}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & 32 & 20 & 8 & 64 \\ 
+ \hline
+    données & version & type contrat & taxe (billes) & contrat ID & adresse & nonce & signature\\ 
+ \hline
+\end{tabular}
+
+\subsection{Échange (double signature)}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|} 
+ \hline
+ octets & 1 & 1 & ? & ? & ? & 8 & 128\\ 
+ \hline
+    données & version & type contrat & taxe (billes) & billes J1 & billes J2 & nonce & signatures\\ 
+ \hline
+\end{tabular}
 
 \section{Gameplay}
 
