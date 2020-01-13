@@ -23,7 +23,6 @@
 
 % Start the document
 \begin{document}
-\renewcommand\seriesdefault{t}
 
 \makeatletter
     \begin{titlepage}
@@ -39,7 +38,6 @@
     \end{titlepage}
 \makeatother
 \thispagestyle{empty}
-
 
 \newpage
 \begin{center}
@@ -69,6 +67,7 @@
 }
 \rfoot{\thepage}
 \pagestyle{fancy}
+\renewcommand\seriesdefault{l}
 
 % Create a new 1st level heading
 \section{Introduction}
