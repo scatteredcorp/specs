@@ -5,7 +5,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-RUN apt-get update && apt-get install -y rubber texlive-lang-french fonts-roboto nodejs
+RUN apt-get update && apt-get install -y rubber texlive-lang-french fonts-roboto nodejs npm
 RUN chmod +x /app/compile.sh
 RUN /app/compile.sh
 
