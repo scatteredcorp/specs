@@ -31,7 +31,7 @@
         \begin{center}
             \pagecolor{background}
             \color{white}
-            \includegraphics[width=0.5\linewidth]{shape.png}\\[10ex]
+            \includegraphics[width=0.5\linewidth]{assets/shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
             {\LARGE Scattered Corporation}\\[40ex] 
 
@@ -62,7 +62,7 @@
     \parbox[b]{\textwidth}{%
     \raggedright
     \footnotesize
-    \includegraphics[width=0.08\linewidth]{shape.png}\\[-7ex]
+    \includegraphics[width=0.08\linewidth]{assets/shape.png}\\[-7ex]
     }%
    }%
 }
@@ -72,26 +72,36 @@
 
 % Create a new 1st level heading
 \section{Introduction}
-BilleGateCoin est une plateforme décentralisée pour un jeu de billes.
-Le jeu de billes est un jeu classique dont le but est de collectionner des billes plus ou moins rares en combattant des adversaires ou en les échangeant.
+BilleGateCoin est une plateforme décentralisée pour un jeu de billes. Cette plateforme utilisera la technologie de la Blockchain pour sécuriser les parties. En 2008, Satoshi Nakamoto est le premier à résoudre le problème de la "double dépense" dans un système décentralisé : le Bitcoin. Cette technologie révolutionnaire et surprenante n'a cessé de prendre de plus en plus de place dans notre société. Nous avons décidé d'aborder cette technologie de la Blockchain de manière divertissante en l'appliquant à un jeu-vidéo dont les règles sont simples et les objets sont collectionnables : le jeu de billes.
 
-\section{Déroulement d'une partie}
-Une partie met en jeu les billes des joueurs : celui qui remporte la partie gagne la bille de son adversaire.
+Il existe plusieurs applications connues de la Blockchain :
+\begin{itemize}
+    \item Bitcoin : système bancaire décentralisé!
+    \item Ethereum : machine virtuelle pour éxécuter du code de manière décentralisée
+    \item CryptoKitties : jeu décentralisé fonctionnant sur Ethereum dont le but est de collectionner des chats virtuels
+\end{itemize}
+
+\includegraphics[width=0.3\linewidth]{assets/decentralized.png}\\
+
+Le jeu de billes est un jeu classique dont le but est de collectionner des billes plus ou moins rares en combattant des adversaires ou en les échangeant. Une partie met en jeu les billes des joueurs : celui qui remporte la partie gagne la bille de son adversaire.
+
+Chaque bille possède des propriétés physique différentes (adhérance, taille) et une rareté différente.
 La façon la plus classique de jouer au jeu de billes est de lancer sa bille sur celle de l'adversaire pour gagner.
+
 
 Dans l'implémentation de ce jeu, le joueur crée la partie avec un adversaire sélectionné.
 Un terrain de jeu est généré avec des obstacles placés aléatoirement et les deux billes des joueurs sont placées de part et d'autre du terrain. Le joueur lance sa bille en direction de celle de l'adversaire. Si ce joueur touche sa bille, il la remporte. Sinon c'est au tour de l'adversaire de lancer sa bille. 
 
+Nous allons évoquer les raisons de la décentralisation de la plateforme.
 
 \section{Décentralisation}
-Cette implémentation du jeu de billes sera décentralisée. 
-La décentralisation du jeu offre de nombreux avantages.
+La décentralisation de la plateforme offre une multitude d'avantages en comparaison à un système centralisé "normal".
 
 \subsection{Confiance}
 Les joueurs n'ont pas à faire confiance à une autorité centrale. 
 \textit{Don't trust, verify.}
 
-Le processus de création des billes ainsi que la définition de leur rareté est entièrement transparent et contrôlé par les joueurs mêmes, plutôt qu'une entreprise privée. Le taux de billes créées est fixé par les joueurs et personne ne peut le modifier sans le consensus général de la communauté.
+Le processus de création des billes ainsi que la définition de leur rareté est entièrement transparent et contrôlé par les joueurs mêmes, plutôt qu'une entreprise privée. Le taux de billes créées est fixé par les joueurs et personne ne peut le modifier sans le consensus général de la communauté. Personne ne peut confisquer les billes d'un joueur, même pas les développeurs.
 
 \subsection{Point of Failure}
 Dans un système décentralisé, il n'existe pas de point unique de défaillance (\textit{single point of failure}). 
@@ -131,9 +141,10 @@ Le joueur choisit la bille qu'il veut jouer, son adversaire (sa clé publique) e
 Ce modèle assume que les deux joueurs ont un moyen de communication direct.
 
 Ce modèle est moins couteux pour le joueur car l'accord entre les deux joueurs est fait hors-blockchain (\textit{off-chain}).
-La création d'une plateforme centralisée permettant aux joueurs de trouver un accord est possible. La centralisation de cette plateforme ne pose pas de problèmes sur l'aspect décentralisé du jeu en lui-même.
+La création d'une plateforme centralisée permettant aux joueurs de trouver un accord est possible. La centralisation de cette plateforme ne pose pas de problèmes sur l'aspect décentralisé du jeu en lui-même.\\
 
-\subsubsection*{}
+
+\includegraphics[width=0.3\linewidth]{assets/agreement.png}\\
 
 Lors de la création de la partie, les joueurs doivent donner une ou plusieurs billes aux \textit{mineurs} afin de traiter la transaction (\textit{transaction fee}). Cette taxe permet aux mineurs d'être rémunérés pour leur travail.
 
@@ -234,6 +245,8 @@ Cette transaction n'a pas d'input, uniquement l'adresse publique du mineur pour 
 Celle-ci contient de nouvelles billes créées, toutes plus ou moins rares telles que 1000 billes grises, 100 billes bleues, et 50 billes rouges. Les rouges seraient par définition plus rares que les autres car il y en aurait moins en circulation.
 En plus de ces nouvelles billes, le mineur récupère toutes les taxes des transactions de chaque joueur (sous la forme de billes également).
 
+\includegraphics[width=0.3\linewidth]{assets/gift.png}\\
+
 Tous les X blocks (210 000 blocks pour Bitcoin $\approx$ 4\ ans), les récompenses des mineurs sont divisées par deux jusqu'à que la totalité des billes soient distribuées.
 La prochaine récompense serait de 500 billes grises, 50 billes bleues, et 25 billes rouges.
 
@@ -308,6 +321,7 @@ octets & 1 & 1 & 8 & ... & 1 & 8\\
 \end{tabular}
 
 \section{Gameplay}
+\includegraphics[width=0.3\linewidth]{assets/gaming.png}\\
 
 \section{Outils utilisés}
 Nous allons utiliser de nombreux outils durant le développement de ce projet.
