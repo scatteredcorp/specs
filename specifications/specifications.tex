@@ -12,10 +12,12 @@
 \usepackage[titles]{tocloft}
 \usepackage{eso-pic}
 \usepackage{fancyhdr}
+\usepackage{pagecolor}
 
 \definecolor{background}{HTML}{13181e}
 \definecolor{green}{HTML}{32bba9}
 \definecolor{greendark}{HTML}{16a085}
+
 
 \sectionfont{\color{green}}  % sets colour of sections
 \subsectionfont{\color{green}}  % sets colour of sections
@@ -27,7 +29,7 @@
 \makeatletter
     \begin{titlepage}
         \begin{center}
-            \pagecolor{background}\afterpage{\nopagecolor}
+            \pagecolor{background}\afterpage{\restorepagecolor}
             \color{white}
             \includegraphics[width=0.5\linewidth]{shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
