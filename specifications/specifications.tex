@@ -33,8 +33,8 @@
             \color{white}
             \includegraphics[width=0.5\linewidth]{assets/shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
-            {\LARGE Scattered Corporation}\\[40ex] 
-
+            {\LARGE Scattered Corporation}\\[20ex]
+            \large{by\\[2ex]aurele.oules  —  leo.gervoson  —  raphael.brenn  —  frederic.dong}\\[16ex] 
             {\large Projet EPITA 2020}
         \end{center}
     \end{titlepage}
@@ -76,7 +76,7 @@ BilleGateCoin est une plateforme décentralisée pour un jeu de billes. Cette pl
 
 Il existe plusieurs applications connues de la Blockchain :
 \begin{itemize}
-    \item Bitcoin : système bancaire décentralisé!
+    \item Bitcoin : système bancaire décentralisé
     \item Ethereum : machine virtuelle pour éxécuter du code de manière décentralisée
     \item CryptoKitties : jeu décentralisé fonctionnant sur Ethereum dont le but est de collectionner des chats virtuels
 \end{itemize}
@@ -123,7 +123,7 @@ La \textit{Blockchain} est un régistre distribué (\textit{distributed ledger})
 Sur une plateforme de jeu décentralisée, il n'y a pas de système de comptes avec une adresse email et un mot de passe.
 Chaque joueur doit alors se générer une clé privée ainsi qu'une clé publique correspondante, avec un algorithme de cryptographie tels que RSA ou \textit{Elliptic Curve Digital Signature Algorithm} (ECDSA).
 
-Cette clé privée doit être précieusement cachée car elle permet de signer toutes les transactions du joueur, c'est-à-dire créer une partie, lancer sa bille, échanger des billes, etc.
+Cette clé privée doit être précieusement cachée car elle permet de signer toutes les transactions du joueur, c'est-à-dire créer une partie, lancer sa bille, échanger des billes, etc. L'utilisateur aura donc la possibilité de chiffrer sa clé privée sur son ordinateur et de la déchiffrer avec un mot de passe lors de la signature d'un contrat. 
 
 \subsection{Lancement de la partie}
 Deux modèles sont envisageables pour la création d'une partie.
@@ -146,7 +146,7 @@ La création d'une plateforme centralisée permettant aux joueurs de trouver un 
 
 \includegraphics[width=0.3\linewidth]{assets/agreement.png}\\
 
-Lors de la création de la partie, les joueurs doivent donner une ou plusieurs billes aux \textit{mineurs} afin de traiter la transaction (\textit{transaction fee}). Cette taxe permet aux mineurs d'être rémunérés pour leur travail.
+Lors de la création de la partie, les joueurs doivent donner une ou plusieurs billes aux \textit{mineurs} afin de traiter la transaction (\textit{transaction fee}). Cette taxe permet aux mineurs d'être rémunérés pour leur travail. Nous implémenterons ce contrat à double signature plutôt que le précedent.
 
 
 \subsection{Source d'entropie}
@@ -404,7 +404,7 @@ Les technologies suivantes nous aideront durant le développement du site web :
 \end{itemize}
 
 \setlength{\tabcolsep}{15pt}
-\renewcommand{\arraystretch}{2}
+\renewcommand{\arraystretch}{1.8}
 
 \section{Tâches}
 \subsection{Répartition des tâches}
@@ -420,6 +420,8 @@ Les technologies suivantes nous aideront durant le développement du site web :
      \hline
     Mining (Proof of Work) & \bold{principal} & second &  & \\ 
      \hline
+     Merkle Tree & \bold{principal} & second &  & \\ 
+     \hline
     Récompenses des mineurs & second & \bold{principal} & & \\ 
      \hline
     Encodage/décodage contrats & \bold{principal} & second &  & \\ 
@@ -434,7 +436,7 @@ Les technologies suivantes nous aideront durant le développement du site web :
      \hline
     Memory Pool & second & \bold{principal} &  & \\ 
      \hline
-     Application des règles du jeu & \bold{principal} & second &  & \\ 
+     Application des règles du jeu (consensus) & \bold{principal} & second &  & \\ 
      \hline
      Définition des 256 billes (nom, atoûts, rareté) & & & second & \bold{principal}\\ 
     \hline
@@ -449,6 +451,8 @@ Les technologies suivantes nous aideront durant le développement du site web :
      Création du plateau de jeu (avec seed) & & second &  & \bold{principal}\\ 
      \hline
       Lancement de la bille & & & \bold{principal} & second\\ 
+    \hline
+       Physique deterministe (Unity DPhysics) & & & second & \bold{principal} \\ 
      \hline
     Détection collision de victoire & & & \bold{principal} & second\\ 
      \hline
