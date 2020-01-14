@@ -320,8 +320,41 @@ octets & 1 & 1 & 8 & ... & 1 & 8\\
  \hline
 \end{tabular}
 
-\section{Gameplay}
+\section{Jeu}
 \includegraphics[width=0.3\linewidth]{assets/gaming.png}\\
+\subsection{Menus}
+
+Lors du lancement du jeu, un menu principal apparait. Des boutons apparaissent:
+\begin{itemize}
+    \item Parties en cours
+    \item Nouvelle partie
+    \item Collection
+\end{itemize}
+
+\subsubsection{Parties en cours}
+Une nouvelle page s'affiche avec les parties en cours de l'utilisateur (sa clé publique). Le joueur peut voir le nombre de coups déjà joués, les billes mises en jeu, la clé publique de son adversaire et l'état actuel de la partie.
+
+Si c'est au joueur de jouer, il peut alors cliquer sur un bouton pour continuer la partie. Le terrain de la partie se génère et il peut lancer sa bille.
+
+\subsubsection{Nouvelle partie}
+Lorsque le joueur clique sur le bouton Nouvelle partie, une nouvelle page s'ouvre avec:
+\begin{itemize}
+    \item La clé publique de l'adversaire
+    \item Une boîte de séléction de la/les billes qu'il veut jouer
+    \item Une boîte de sélection de la/les billes de l'adversaire
+    \item Une boîte de sélection de la/les billes qu'il donne aux mineurs (transaction fee)
+\end{itemize}
+
+Le joueur devra signer ce contrat avec sa clé privée avec une boîte de dialogue lui demandant son mot de passe. Celui-ci devra faire signer ce contrat à l'adversaire. Une fois le contrat signé par les deux parties, ce contrat peut être diffusé sur la blockchain par un des deux joueurs. La partie commence.
+
+\subsubsection{Collection}
+
+
+\subsection{Terrain de jeu}
+
+
+
+
 
 \section{Outils utilisés}
 Nous allons utiliser de nombreux outils durant le développement de ce projet.
