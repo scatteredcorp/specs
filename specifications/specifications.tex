@@ -22,7 +22,7 @@
 \sectionfont{\color{green}}  % sets colour of sections
 \subsectionfont{\color{green}}  % sets colour of sections
 \subsubsectionfont{\color{green}}
-
+% \color{background}
 % Start the document
 \begin{document}
 
@@ -296,7 +296,7 @@ octets & 1 & 1 & 8 & ... & 1 & 8\\
  \hline
  octets & 1 & 1 & ? & 1 & 1 & 32 & 8 & 64 \\ 
  \hline
-    données & version & type contrat & taxe (billes) & X & Z & contrat ID & nonce & signature\\ 
+    données & version & type contrat & taxe (billes) & second & Z & contrat ID & nonce & signature\\ 
  \hline
 \end{tabular}
 
@@ -403,54 +403,105 @@ Les technologies suivantes nous aideront durant le développement du site web :
     \item Google Chrome
 \end{itemize}
 
-\setlength{\tabcolsep}{8pt}
-\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{15pt}
+\renewcommand{\arraystretch}{2}
 
 \section{Tâches}
+\subsection{Répartition des tâches}
 \begin{center}
 \hspace*{-1cm}%
-\begin{tabular}{ |c|c|c|c|c|c|c|} 
+\begin{tabular}{ |c|c|c|c|c|} 
  \hline
-    \boldblack{tâche} & \boldblack{Aurèle} & \boldblack{Léo} & \boldblack{Raphaël} & \boldblack{Frédéric} & \bfseries{Avancement} & \bfseries{Date} \\ 
+    \boldblack{tâche} & \boldblack{Aurèle} & \boldblack{Léo} & \boldblack{Raphaël} & \boldblack{Frédéric} \\ 
      \hline
-    génération clées privées (ECDSA) & X & \bold{X} &  & & 0\% & 17/02\\ 
+    Génération clées privées (ECDSA) & second & \bold{principal} &  & \\ 
      \hline
-     création de porte-feuille & \bold{X} & X &  & & 0\% & 17/02\\ 
+     Création de porte-feuille & \bold{principal} & second &  & \\ 
      \hline
-    mining (Proof of Work) & \bold{X} & X &  & & 0\% & 17/02\\ 
+    Mining (Proof of Work) & \bold{principal} & second &  & \\ 
      \hline
-    récompenses des mineurs & X & \bold{X} & & & 0\% & 17/02\\ 
+    Récompenses des mineurs & second & \bold{principal} & & \\ 
      \hline
-    encodage/décodage contrats & \bold{X} & X &  & & 0\% & 17/02\\ 
+    Encodage/décodage contrats & \bold{principal} & second &  & \\ 
      \hline
-    signature contrats & X & \bold{X} &  & & 0\% & 17/02\\ 
+    Signature contrats & second & \bold{principal} &  & \\ 
      \hline
-    command line interface (CLI) & X & \bold{X} & &&  0\% & 17/02\\ 
+    Command Line Interface (CLI) & second & \bold{principal} & &\\ 
      \hline
-    module de persistance (LevelDB) & \bold{X} & X &  & & 0\% & 17/02\\ 
+    Module de persistance (LevelDB) & \bold{principal} & second &  & \\ 
      \hline
-     communication tcp/ip & X & \bold{X} &  & & 0\% & 17/02\\ 
+     Communication tcp/ip & second & \bold{principal} &  & \\ 
      \hline
-    memory pool & X & \bold{X} &  & & 0\% & 17/02\\ 
+    Memory Pool & second & \bold{principal} &  & \\ 
      \hline
-     application des règles du jeu & \bold{X} & X &  & & 0\% & 17/02\\ 
+     Application des règles du jeu & \bold{principal} & second &  & \\ 
      \hline
-     définition des 256 billes (nom, atoûts, rareté) & & & X & \bold{X} & 0\% & 17/02\\ 
+     Définition des 256 billes (nom, atoûts, rareté) & & & second & \bold{principal}\\ 
     \hline
-    design des billes & X & & \bold{X} & & 0\% & 17/02 \\ 
+    Design des billes & second & & \bold{principal} & \\ 
      \hline
-    menus du jeu & & & X & \bold{X} & 0\% & 17/02\\ 
+    Menus du jeu & & & second & \bold{principal}\\ 
      \hline
-    interface de selection de billes & & & X & \bold{X} & 0\% & 17/02\\ 
+    Interface de selection de billes & & & second & \bold{principal}\\ 
      \hline
-     modélisation 3D des obstacles & & & \bold{X} & X & 0\% & 17/02\\ 
+     Modélisation 3D des obstacles & & & \bold{principal} & second\\ 
      \hline
-     création du plateau de jeu (avec seed) & & X &  & \bold{X} & 0\% & 17/02\\ 
+     Création du plateau de jeu (avec seed) & & second &  & \bold{principal}\\ 
      \hline
-      lancement de la bille & & & \bold{X} & X & 0\% & 17/02\\ 
+      Lancement de la bille & & & \bold{principal} & second\\ 
      \hline
-    détection collision de victoire & & & \bold{X} & X & 0\% & 17/02\\ 
+    Détection collision de victoire & & & \bold{principal} & second\\ 
+     \hline
+    Site web & \bold{principal} & & & second\\ 
      \hline
 \end{tabular}
 \end{center}
+
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{2}
+
+\subsection{Objectifs}
+\begin{center}
+\hspace*{-1cm}%
+\begin{tabular}{ |c|c|c|c|} 
+ \hline
+    \boldblack{tâche} & \boldblack{1ère soutenance} & \boldblack{2ème soutenance} & \boldblack{3ème soutenance}\\ 
+     \hline
+        Génération d'un porte-feuille fonctionnel & \bold{100\%} & / & / \\ 
+     \hline
+        Encodage / Décodage des contrats & \bold{100\%} & / & / \\ 
+     \hline
+        Signature contrats & \bold{100\%} & / & / \\ 
+    \hline
+        Mining & 33\% & 66\% & \bold{100\%} \\ 
+     \hline
+        Memory Pool & 50\% & \bold{100\%} & / \\ 
+     \hline
+        Récompenses & 0\% & 50\% & \bold{100\%} \\ 
+     \hline
+        CLI & 33\% & 66\% & \bold{100\%} \\ 
+     \hline
+        Module de persistance & 50\% & \bold{100\%} & / \\ 
+     \hline
+        Communication TCP/IP & 0\% & 50\% & \bold{100\%} \\ 
+     \hline
+        Définition des billes & 33\% & 66\% & \bold{100\%} \\ 
+     \hline
+        Design des billes & 33\% & 66\% & \bold{100\%} \\ 
+     \hline
+        Menus du jeu & 50\% & \bold{100\%} & / \\ 
+     \hline
+        Modélisation 3D & 0\% & 50\% & \bold{100\%} \\ 
+     \hline
+        Terrain de jeu & 33\% & 66\% &\bold{100\%} \\ 
+     \hline
+         Lancés et trajectoires & 33\% & 66\% &\bold{100\%} \\ 
+     \hline
+         Site web & 0\% & 50\% &\bold{100\%} \\ 
+     \hline
+     \end{tabular}
+\end{center}
+
+\section{Conclusion}
+
 \end{document}
