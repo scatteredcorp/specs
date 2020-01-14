@@ -217,7 +217,7 @@ Les mineurs forment un block à partir des contrats de la \textit{memory pool} d
 
 Si le hash n'est pas compris dans cet intervalle, les mineurs calculent à nouveau un hash du block en concatenant un \textit{nonce} différent. C'est un nombre arbitraire qui permet uniquement de générer un hash différent en conservant les valeurs du block.
 
-Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% du réseau est honnête.
+Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% & 17/02 du réseau est honnête.
 
 Si un utilisateur malveillant voulait essayer de falsifier une transaction en l'ajoutant soi-même à la blockchain, c'est-à-dire en minant le block soi-même, il devrait alors résoudre ce puzzle extrêmement compliqué seul. De plus, aucune node n'accepterai cette transaction, sauf si l'utilisateur possède plus de la moitié des ordinateurs du réseau (\textit{51\% attack}) car l'utilisateur pourrait ainsi corrompre le consensus et former une nouvelle blockchain.
 Cette attaque est extrêmement peu probable.
@@ -376,47 +376,47 @@ Les technologies suivantes nous aideront durant le développement du site web :
 \section{Tâches}
 \begin{center}
 \hspace*{-1cm}%
-\begin{tabular}{ |c|c|c|c|c|c|} 
+\begin{tabular}{ |c|c|c|c|c|c|c|} 
  \hline
-    \boldblack{tâche} & \boldblack{Aurèle} & \boldblack{Léo} & \boldblack{Raphaël} & \boldblack{Frédéric} & \bfseries{Avancement} \\ 
+    \boldblack{tâche} & \boldblack{Aurèle} & \boldblack{Léo} & \boldblack{Raphaël} & \boldblack{Frédéric} & \bfseries{Avancement} & \bfseries{Date} \\ 
      \hline
-    génération clées privées (ECDSA) & second & \bold{principal} &  & & 0\%\\ 
+    génération clées privées (ECDSA) & X & \bold{X} &  & & 0\% & 17/02\\ 
      \hline
-     création de porte-feuille & \bold{principal} & second &  & & 0\%\\ 
+     création de porte-feuille & \bold{X} & X &  & & 0\% & 17/02\\ 
      \hline
-    mining (Proof of Work) & \bold{principal} & second &  & & 0\%\\ 
+    mining (Proof of Work) & \bold{X} & X &  & & 0\% & 17/02\\ 
      \hline
-    récompenses des mineurs & second & \bold{principal} & & & 0\%\\ 
+    récompenses des mineurs & X & \bold{X} & & & 0\% & 17/02\\ 
      \hline
-    encodage/décodage contrats & \bold{principal} & second &  & & 0\%\\ 
+    encodage/décodage contrats & \bold{X} & X &  & & 0\% & 17/02\\ 
      \hline
-    signature contrats & second & \bold{principal} &  & & 0\%\\ 
+    signature contrats & X & \bold{X} &  & & 0\% & 17/02\\ 
      \hline
-    command line interface (CLI) & second & \bold{principal} & &&  0\%\\ 
+    command line interface (CLI) & X & \bold{X} & &&  0\% & 17/02\\ 
      \hline
-    module de persistance (LevelDB) & \bold{principal} & second &  & & 0\%\\ 
+    module de persistance (LevelDB) & \bold{X} & X &  & & 0\% & 17/02\\ 
      \hline
-     communication tcp/ip & second & \bold{principal} &  & & 0\%\\ 
+     communication tcp/ip & X & \bold{X} &  & & 0\% & 17/02\\ 
      \hline
-    memory pool & second & \bold{principal} &  & & 0\%\\ 
+    memory pool & X & \bold{X} &  & & 0\% & 17/02\\ 
      \hline
-     application des règles du jeu & \bold{principal} & second &  & & 0\%\\ 
+     application des règles du jeu & \bold{X} & X &  & & 0\% & 17/02\\ 
      \hline
-     définition des 256 billes (nom, atoûts, rareté) & & & second & \bold{principal} & 0\%\\ 
+     définition des 256 billes (nom, atoûts, rareté) & & & X & \bold{X} & 0\% & 17/02\\ 
     \hline
-    design des billes & second & & \bold{principal} & & 0\% \\ 
+    design des billes & X & & \bold{X} & & 0\% & 17/02 \\ 
      \hline
-    menus du jeu & & & second & \bold{principal} & 0\%\\ 
+    menus du jeu & & & X & \bold{X} & 0\% & 17/02\\ 
      \hline
-    interface de selection de billes & & & second & \bold{principal} & 0\%\\ 
+    interface de selection de billes & & & X & \bold{X} & 0\% & 17/02\\ 
      \hline
-     modélisation 3D des obstacles & & & \bold{principal} & second & 0\%\\ 
+     modélisation 3D des obstacles & & & \bold{X} & X & 0\% & 17/02\\ 
      \hline
-     création du plateau de jeu (avec seed) & & second &  & \bold{principal} & 0\%\\ 
+     création du plateau de jeu (avec seed) & & X &  & \bold{X} & 0\% & 17/02\\ 
      \hline
-      lancement de la bille & & & \bold{principal} & second & 0\%\\ 
+      lancement de la bille & & & \bold{X} & X & 0\% & 17/02\\ 
      \hline
-    détection collision de victoire & & & \bold{principal} & second & 0\%\\ 
+    détection collision de victoire & & & \bold{X} & X & 0\% & 17/02\\ 
      \hline
 \end{tabular}
 \end{center}
