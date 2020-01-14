@@ -217,7 +217,7 @@ Les mineurs forment un block à partir des contrats de la \textit{memory pool} d
 
 Si le hash n'est pas compris dans cet intervalle, les mineurs calculent à nouveau un hash du block en concatenant un \textit{nonce} différent. C'est un nombre arbitraire qui permet uniquement de générer un hash différent en conservant les valeurs du block.
 
-Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% & 17/02 du réseau est honnête.
+Ce hash sécurise la blockchain car il est facile de le résoudre si tout le réseau travail sur ce problème, mais il est impossible de résoudre ce problème seul. Ce système assume que plus de 50\% du réseau est honnête.
 
 Si un utilisateur malveillant voulait essayer de falsifier une transaction en l'ajoutant soi-même à la blockchain, c'est-à-dire en minant le block soi-même, il devrait alors résoudre ce puzzle extrêmement compliqué seul. De plus, aucune node n'accepterai cette transaction, sauf si l'utilisateur possède plus de la moitié des ordinateurs du réseau (\textit{51\% attack}) car l'utilisateur pourrait ainsi corrompre le consensus et former une nouvelle blockchain.
 Cette attaque est extrêmement peu probable.
