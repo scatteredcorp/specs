@@ -74,6 +74,8 @@
 \section{Introduction}
 BilleGateCoin est une plateforme décentralisée pour un jeu de billes. Cette plateforme utilisera la technologie de la Blockchain pour sécuriser les parties. En 2008, Satoshi Nakamoto est le premier à résoudre le problème de la "double dépense" dans un système décentralisé : le Bitcoin. Cette technologie révolutionnaire et surprenante n'a cessé de prendre de plus en plus de place dans notre société. Nous avons décidé d'aborder cette technologie de la Blockchain de manière divertissante en l'appliquant à un jeu-vidéo dont les règles sont simples et les objets sont collectionnables : le jeu de billes.
 
+\includegraphics[width=0.3\linewidth]{assets/decentralized.png}\\
+
 \subsection{Membres}
 \subsubsection{Aurèle}
 Depuis que je suis tout petit, je suis passionné par la programmation et les jeux-vidéos. La Blockchain est une nouvelle technologie qui est encore en phase de développement et d'adoption. Ce projet de S2 à EPITA est l'occasion de montrer le potentiel de cette technologie émergente en l'appliquant au domaine du jeu vidéo. J'ai hâte de participer au développement de ce jeu original.
@@ -98,8 +100,6 @@ Il existe plusieurs applications connues de la Blockchain :
     \item Ethereum : machine virtuelle pour éxécuter du code de manière décentralisée
     \item CryptoKitties : jeu décentralisé fonctionnant sur Ethereum dont le but est de collectionner des chats virtuels
 \end{itemize}
-
-\includegraphics[width=0.3\linewidth]{assets/decentralized.png}\\
 
 \subsection{Implémentation}
 
@@ -132,7 +132,9 @@ Dans une plateforme centralisée, si le système est défaillant, tout le résea
 N'importe quel individu avec des notions en programmation peut contribuer au développement de la plateforme.
 Si assez de joueurs (consensus) acceptent ces changements alors ce code est ajouté à la plateforme.
 
-Rien n'empêche un joueur de cloner cette plateforme afin de créer un jeu avec des règles différentes : \textit{Hard Fork}.
+Rien n'empêche un joueur de cloner cette plateforme afin de créer un jeu avec des règles différentes : \textit{Hard Fork}.\\
+
+\includegraphics[width=0.3\linewidth]{assets/open.png}\\
 
 \section{Fonctionnement}
 Afin de permettre la décentralisation du jeu, nous utiliserons la technologie de la Blockchain.
@@ -270,6 +272,7 @@ En plus de ces nouvelles billes, le mineur récupère toutes les taxes des trans
 Tous les X blocks (210 000 blocks pour Bitcoin $\approx$ 4\ ans), les récompenses des mineurs sont divisées par deux jusqu'à que la totalité des billes soient distribuées.
 La prochaine récompense serait de 500 billes grises, 50 billes bleues, et 25 billes rouges.
 
+\newpage
 \section{Contrats}
 \subsection*{Placement de billes}
 \hspace*{-1cm}%
@@ -339,6 +342,8 @@ octets & 1 & 1 & 8 & ... & 1 & 8\\
     données & version & type contrat & taxe (billes) & billes J1 & billes J2 & nonce & signatures\\ 
  \hline
 \end{tabular}
+
+\newpage
 
 \section{Jeu}
 \includegraphics[width=0.3\linewidth]{assets/gaming.png}\\
