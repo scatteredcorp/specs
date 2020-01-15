@@ -79,7 +79,7 @@ BilleGateCoin est une plateforme décentralisée pour un jeu de billes. Cette pl
 Depuis que je suis tout petit, je suis passionné par la programmation et les jeux-vidéos. La Blockchain est une nouvelle technologie qui est encore en phase de développement et d'adoption. Ce projet de S2 à EPITA est l'occasion de montrer le potentiel de cette technologie émergente en l'appliquant au domaine du jeu vidéo. J'ai hâte de participer au développement de ce jeu original.
 
 \subsubsection{Léo}
-Ce projet m'interesse d'une part car j'ai eu l'occasion d'en apprendre sur la blockchain lors des exposés d'anglais en présentant un exposé sur la blockchain, et d'autre part car je trouve l'utilisation de la blockchain pour la mise en place d'un jeu vraiment innovante et liant deux domaines habituellement séparés: les jeux et la blockchain.
+Ce projet m'intéresse d'une part car j'ai eu l'occasion d'en apprendre sur la blockchain lors des exposés d'anglais en présentant un exposé sur la blockchain, et d'autre part car je trouve l'utilisation de la blockchain pour la mise en place d'un jeu vraiment innovante et liant deux domaines habituellement séparés: les jeux et la blockchain.
 
 \subsubsection{Raphaël}
 
@@ -368,15 +368,15 @@ Lorsque le joueur clique sur le bouton Nouvelle partie, une nouvelle page s'ouvr
 Le joueur devra signer ce contrat avec sa clé privée avec une boîte de dialogue lui demandant son mot de passe. Celui-ci devra faire signer ce contrat à l'adversaire. Une fois le contrat signé par les deux parties, ce contrat peut être diffusé sur la blockchain par un des deux joueurs. La partie commence.
 
 \subsubsection{Collection}
+Le joueur pourra voir sa collection de billes en cliquant sur le bouton Collection sur le menu d'accueil. Il pourra également examiner les propriétés physique de chaque billes et leur rareté.
+
+\subsection{Gameplay}
+Les terrains du jeu sont générés en fonction d'un \textit{seed}. Pour le même seed, la répartition des billes et des obstacles seront sera toujours la même le même.
+
+Une physique déterministe sera implémentée. Pour un lancé de bille quelconque, la nouvelle position de la bille doit toujours être la même peu importe la marque du processeur de l'utilisateur, sa rapidité, l'heure, etc. Cela permet aux \textit{nodes} d'obtenir le même résultat peu importe le contexte, et donc d'arbitrer la partie avec une haute précision.
 
 
-\subsection{Terrain de jeu}
-
-
-
-
-
-\section{Outils utilisés}
+\section{Outils et coûts}
 Nous allons utiliser de nombreux outils durant le développement de ce projet.
 
 \subsection{Développement global}
@@ -386,6 +386,7 @@ Les principaux outils que nous utiliserons seront :
     \item C\#
     \item Git
     \item GitHub
+    \item Travis-CI
     \item \LaTeX
     \item Discord
     \item Google
@@ -422,6 +423,29 @@ Les technologies suivantes nous aideront durant le développement du site web :
     \item MongoDB / MySQL
     \item Google Chrome
 \end{itemize}
+
+\subsection{Coûts}
+\begin{center}
+\setlength{\tabcolsep}{15pt}
+\renewcommand{\arraystretch}{1.8}
+
+\hspace*{-1cm}%
+\begin{tabular}{ |c|c|c|c|} 
+ \hline
+    \boldblack{Élément} & \boldblack{Prix} & \boldblack{Quantité} & \boldblack{Description}\\ 
+     \hline
+        Hébergement des serveurs & 0.00€ & $\infty$ & C'est pas décentralisé pour rien \\ 
+     \hline
+        Nom de domaine & 0.00€ & 1 & Offert par GitHub Student Pack \\ 
+     \hline
+        Discord & 0.00€ & - & - \\ 
+     \hline
+        GitHub & 0.00€ & - & - \\ 
+     \hline
+        Électricité & 0.1452€ & / kWh & - \\ 
+     \hline
+     \end{tabular}
+\end{center}
 
 \setlength{\tabcolsep}{15pt}
 \renewcommand{\arraystretch}{1.8}
@@ -527,5 +551,7 @@ Les technologies suivantes nous aideront durant le développement du site web :
 \end{center}
 
 \section{Conclusion}
+BilleGateCoin est un projet ambitieux et un défi pour tous les membres de \bold{Scattered Corp}. Malgré l'aspect simple du jeu de billes, le but de ce projet est de créer un jeu vidéo entièrement transparent afin de complètement réduire le niveau de confiance que les joueurs doivent donner aux développeurs de la plupart des jeux vidéos d'aujourd'hui.
+
 
 \end{document}
