@@ -29,8 +29,8 @@
 \makeatletter
     \begin{titlepage}
         \begin{center}
-            \pagecolor{background}
-            \color{white}
+            % \pagecolor{background}
+            % \color{white}
             \includegraphics[width=0.5\linewidth]{assets/shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
             {\LARGE Scattered Corporation}\\[20ex]
@@ -43,7 +43,7 @@
 
 \newpage
 \begin{center}
-\color{white}
+% \color{white}
 \tableofcontents
 \end{center}
 \newpage
@@ -263,7 +263,7 @@ blocks. Chaque node va calculer le temps que X block prennent pour être minés 
 
 \subsubsection{Récompenses}
 Dans chaque block miné, le mineur inclut une transaction spéciale : la \textit{coinbase transaction}. C'est la récompense du mineur.
-Cette transaction n'a pas d'input, uniquement l'adresse publique du mineur pour recevoir sa récompense.
+Cette transaction contient uniquement l'adresse publique du mineur pour recevoir sa récompense.
 Celle-ci contient de nouvelles billes créées, toutes plus ou moins rares telles que 1000 billes grises, 100 billes bleues, et 50 billes rouges. Les rouges seraient par définition plus rares que les autres car il y en aurait moins en circulation.
 En plus de ces nouvelles billes, le mineur récupère toutes les taxes des transactions de chaque joueur (sous la forme de billes également).
 
@@ -273,7 +273,7 @@ Tous les X blocks (210 000 blocks pour Bitcoin $\approx$ 4\ ans), les récompens
 La prochaine récompense serait de 500 billes grises, 50 billes bleues, et 25 billes rouges.
 
 \newpage
-\section{Contrats}
+\section{Contrats (ébauche)}
 \subsection*{Placement de billes}
 \hspace*{-1cm}%
 \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
@@ -284,32 +284,12 @@ octets & 1 & 1 & 8 & ... & 1 & 8\\
  \hline
 \end{tabular}
 \subsection{Création de la partie}
-\subsubsection{Double signature}
 \hspace*{-1cm}%
 \begin{tabular}{ |c|c|c|c|c|c|c|c|} 
  \hline
  octets & 1 & 1 & ? & ? & ? & 8 & 128\\ 
  \hline
     données & version & type contrat & taxe (billes) & billes J1 & billes J2 & nonce & signatures\\ 
- \hline
-\end{tabular}
-
-\subsubsection{Invitation et acceptation}
-\hspace*{-1cm}%
-\begin{tabular}{ |c|c|c|c|c|c|c|c|c|} 
- \hline
- octets & 1 & 1 & ? & 20 & ? & ? & 8 & 64\\ 
- \hline
-    données & version & type contrat & taxe (billes) & adresse J2 & billes J1 & billes J2 & nonce & signature\\ 
- \hline
-\end{tabular}\\ \break
-
-\hspace*{-1cm}%
-\begin{tabular}{ |c|c|c|c|c|c|c|} 
- \hline
- octets & 1 & 1 & ? & 32 & 8 & 64\\ 
- \hline
-    données & version & type contrat & taxe (billes) & contrat ID & nonce & signature\\ 
  \hline
 \end{tabular}
 
