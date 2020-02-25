@@ -1,0 +1,81 @@
+\documentclass{article}
+% Comment the following line to NOT allow the usage of umlauts
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{xcolor}
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage{sectsty}
+\usepackage[titles]{tocloft}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{pagecolor}
+
+\definecolor{background}{HTML}{13181e}
+\definecolor{green}{HTML}{32bba9}
+\definecolor{greendark}{HTML}{16a085}
+
+
+\sectionfont{\color{green}}  % sets colour of sections
+\subsectionfont{\color{green}}  % sets colour of sections
+\subsubsectionfont{\color{green}}
+\color{background}
+% Start the document
+\begin{document}
+
+\makeatletter
+    \begin{titlepage}
+        \begin{center}
+            \pagecolor{background}
+            \color{white}
+            \includegraphics[width=0.5\linewidth]{assets/shape.png}\\[10ex]
+            {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
+            {\LARGE Scattered Corporation}\\[10ex]
+            
+            {\huge \bfseries RAPPORT DE SOUTENANCE}\\[5ex]
+            \large{réalisé par\\[2ex]aurele.oules  •  leo.gervoson  •  raphael.brenn}\\[16ex] 
+            {\large Projet EPITA 2020}
+        \end{center}
+    \end{titlepage}
+\makeatother
+\thispagestyle{empty}
+
+\newpage
+\begin{center}
+\color{white}
+\tableofcontents
+\end{center}
+\newpage
+\pagecolor{white}
+\sectionfont{\color{greendark}}  % sets colour of sections
+
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+\newcommand\bold[1]{\textcolor{green}{\bfseries{#1}}}
+\newcommand\boldblack[1]{\textcolor{background}{\bfseries{#1}}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{green}\leaders\hrule height \footrulewidth\hfill}}
+
+\lfoot{%
+   \smash{%  % hide vertical stretch of the following content
+    \parbox[b]{\textwidth}{%
+    \raggedright
+    \footnotesize
+    \includegraphics[width=0.08\linewidth]{assets/shape.png}\\[-7ex]
+    }%
+   }%
+}
+\rfoot{\thepage}
+\pagestyle{fancy}
+\renewcommand\seriesdefault{l}
+
+% Create a new 1st level heading
+\section{Introduction}
+BilleGateCoin est une plateforme décentralisée pour un jeu de billes.
+
+
+
+\end{document}
