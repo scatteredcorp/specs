@@ -380,6 +380,56 @@ DB.Put(block.Hash, block.Serialize());
 \section{Réseau}
 L'implémentation d'un protocole de communication est majeur dans une blockchain.
 
+\subsection{Architecture}
+
+\begin{center}
+    \includegraphics{report/schema-net.png}
+\end{center}
+
+Le réseau est constitué de:
+\begin{itemize}
+    \item Supernodes: serveurs (ports ouverts) permettant aux nodes de communiquer entre elles.
+    \item Nodes: clients
+\end{itemize}
+
+\subsection{Peer to peer (P2P)}
+
+Une blockchain est basée sur la communication P2P entre les nodes.
+Cependant, les clients utilisent la plupart du temps un routeur NAT dont les ports sont fermés.
+Il faut donc des supernodes intermediaires afin d'initialiser une connection P2P.
+On utilisera la méthode du hole punching pour ouvrir les ports des clients.
+
+\subsection{Supernodes}
+
+Les supernodes auront des addresses IP fixes, hardcodées dans la blockchain.
+Il faut au minimum une supernode en ligne pour garantir le fonctionnement du réseau.
+Les supernodes tiennent à jour une liste des nodes en ligne.
+Toute initiation de connection P2P entre nodes se fait en passant par une supernode:
+\begin{itemize}
+    \item La node initiant la connection contacte la supernode pour obtenir l'addresse IP de la node visée
+    \item Elle envoie ensuite un paquet à la cible, qui sera rejeté par le pare-feu. Cette étape a pour but d'ouvrir un port acceptant les paquets venant de la cible
+    \item Elle envoie l'ID du port nouvellement ouvert à la supernode, qui le communique à la cible
+    \item La cible envoie un paquet au port ouvert, qui cette fois est accepté
+    \item Les 2 nodes ont à présent chacune un port ouvert acceptant les paquets venant de l'autre
+\end{itemize}
+
+\subsection{Messages}
+
+Les paquets envoyés sur le réseau, appelés messages, possèdent une architecture prédéfinie.
+Ils suivent l'architecture suivante:
+
+\begin{table}[]
+    \begin{tabular}{cc}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Bytes}} & \multicolumn{1}{c|}{\textbf{Valeur}}   \\ \hline
+    \multicolumn{1}{|c|}{1}              & \multicolumn{1}{c|}{Magic (réseau)}    \\ \hline
+    \multicolumn{1}{|c|}{1}              & \multicolumn{1}{c|}{Commande}          \\ \hline
+    \multicolumn{1}{|c|}{4}              & \multicolumn{1}{c|}{Taille du contenu} \\ \hline
+    4                                    & Hash du contenu                        \\
+    ?                                    & Contenu                               
+    \end{tabular}
+\end{table}
+
 \section{Plateau de jeu}
 Le jeu de billes est traditionnellement relié à l’univers des enfants et de l’école, nous nous sommes donc rapidement mis d’accord sur la nature du plateau de jeu : une cour de récréation.
 
