@@ -419,17 +419,21 @@ Toute initiation de connection P2P entre nodes se fait en passant par une supern
 Les paquets envoyés sur le réseau, appelés messages, possèdent une architecture prédéfinie.
 Ils suivent l'architecture suivante:
 
-\begin{table}[]
-    \begin{tabular}{cc}
+\begin{tabular}{ |c|c|c|c|c|} 
+ \hline
+    \boldblack{Bytes} & \boldblack{Valeur} \\ 
     \hline
-    \multicolumn{1}{|c|}{\textbf{Bytes}} & \multicolumn{1}{c|}{\textbf{Valeur}}   \\ \hline
-    \multicolumn{1}{|c|}{1}              & \multicolumn{1}{c|}{Magic (réseau)}    \\ \hline
-    \multicolumn{1}{|c|}{1}              & \multicolumn{1}{c|}{Commande}          \\ \hline
-    \multicolumn{1}{|c|}{4}              & \multicolumn{1}{c|}{Taille du contenu} \\ \hline
-    \multicolumn{1}{|c|}{4}              & \multicolumn{1}{c|}{Hash du contenu}   \\ \hline
-    \multicolumn{1}{|c|}{?}              & \multicolumn{1}{c|}{Contenu }          \\ \hline
-    \end{tabular}
-\end{table}
+    1      & Magic (réseau) \\
+    \hline
+    1      & Commande            \\
+    \hline
+    4      & Taille du contenu        \\
+    \hline
+    4      & Checksum du contenu        \\
+    \hline
+    ?      & Contenu        \\
+    \hline
+\end{tabular}\\[1ex]
 
 \section{Plateau de jeu}
 Le jeu de billes est traditionnellement relié à l’univers des enfants et de l’école, nous nous sommes donc rapidement mis d’accord sur la nature du plateau de jeu : une cour de récréation.
