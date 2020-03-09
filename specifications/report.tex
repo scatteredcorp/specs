@@ -14,6 +14,7 @@
 \usepackage{fancyhdr}
 \usepackage{pagecolor}
 \usepackage{subfig}
+\usepackage{spverbatim}
 
 \definecolor{background}{HTML}{13181e}
 \definecolor{green}{HTML}{32bba9}
@@ -23,15 +24,15 @@
 \sectionfont{\color{green}}  % sets colour of sections
 \subsectionfont{\color{green}}  % sets colour of sections
 \subsubsectionfont{\color{green}}
-\color{background}
+% \color{background}
 % Start the document
 \begin{document}
 
 \makeatletter
     \begin{titlepage}
         \begin{center}
-            \pagecolor{background}
-            \color{white}
+            % \pagecolor{background}
+            % \color{white}
             \includegraphics[width=0.5\linewidth]{assets/shape.png}\\[10ex]
             {\huge \bfseries BilleGateCoin - BGC}\\[2ex] 
             {\LARGE Scattered Corporation}\\[10ex]
@@ -46,7 +47,7 @@
 
 \newpage
 \begin{center}
-\color{white}
+% \color{white}
 \tableofcontents
 \end{center}
 \newpage
@@ -76,6 +77,24 @@
 % Create a new 1st level heading
 \section{Introduction}
 BilleGateCoin est une plateforme décentralisée pour un jeu de billes.
+Dans ce rapport de soutenance nous allons évoquer les différentes fonctions et tâches implémentées dans notre projet.
+Nous discuterons également de ce qu'il reste à faire.
+
+\section{CLI}
+Une implémentation d'une CLI\footnote{Command Line Interface} est nécessaire pour le test du protocole de la blockchain. Elle s'avère également utile lorsqu'un utilisateur souhaite communiquer directement avec la blockchain, plutôt que de passer par l'interface graphique qui sera créée sur Unity.
+Quelques commandes ont été implémentées par \bold{Aurèle} :
+
+\begin{itemize}
+    \item $init$ : initialise la blockchain
+    \item $signcontract$ : prend en argument un contrat en héxadécimal et le sign avec la clé privée du joueur
+    \item $decodecontract$ : prend en argument un contract en héxadécimal et le décode
+    \item $createwallet$ : prend en argument un mot de passe de chiffrement et génère un nouveau porte-feuille
+    \item $deletewallet$ : supprime le porte-feuille
+    \item $inventory$ : pas encore implémentée. Cette fonction doit retourner l'inventaire d'un joueur en parcourant le \bold{world state}
+    \item $start$ : démarre la node pour communiquer en TCP/IP
+    \item $send$ : permet d'envoyer à une node un message texte (pour tester)
+\end{itemize}
+
 
 \section{Génération du portefeuille}
 Un portefeuille consiste d'une clé privée et d'une clé publique correspondante. Celui-ci permet de signer des contrats sur la plate-forme and remplace le système basique d'email/mot de passe.
@@ -152,10 +171,10 @@ public byte[] Address() {
 \end{verbatim}
 
 \subsection{Chiffrement}
-Une clé privée doit être stockée et chiffrée. Pour se faire, nous avons adopter l'algorithme de chiffrement \bold{AES}. Le porte-feuille est sauvegardé en tant que $wallet.dat$ et ne peut être déchiffré uniquement avec le mot de passe de l'utilisateur.
+Une clé privée doit être stockée et chiffrée. Pour se faire, nous avons adopter l'algorithme de chiffrement \bold{AES}. Lors de la création d'un nouveau porte-feuille, l'utilisateur est demandé d'entrer un mot de passe pour chiffrer sa clé privée. Celle-ci est sauvegardé en tant que $wallet.dat$ et ne peut être déchiffrée uniquement avec le mot de passe de l'utilisateur.
 
 \section{Sérialisation}
-La sérialisation est le codage d'une structure de données dans un format qui peut être lu et restitué plus tard. BilleGateCoin doit passer par ce processus de sérialisation afin de pouvoir stocker les différents contrats et block de la blockchain sur un disque dur, de manière compacte et optimisée.
+La sérialisation est le codage d'une structure de données dans un format qui peut être lu et restitué plus tard. BilleGateCoin doit passer par ce processus de sérialisation afin de pouvoir stocker les différents contrats et block de la blockchain sur un disque dur, de manière compacte et optimisée. \bold{Aurèle} a implémenté ces différentes fonctions.
 
 \subsection{Contrats}
 \subsubsection{Placement de billes}
@@ -211,7 +230,63 @@ Ce contrat doit être signé par les deux joueurs afin de créer une nouvelle pa
     \hline
     65      & Signature du joueur 2      \\
     \hline
-\end{tabular}
+\end{tabular}\\[1ex]
+
+Un contrat sérialisé puis converti en héxadécimal ressemble à ceci: 
+
+\begin{spverbatim}
+    010002000C000000010F000000020240000000042000000002057A00000008020000008A9B9E6AD7633E9
+    F498D044D22B8F6466EEA73DCD727E966458A4BA642E726EAB822B91C6FEA82802466AC6BA4E00115D2C2
+    04000000D59C2D1DA1F26883303C2541F35F406ADCB7EAB78DAA5B1A15975B0DBE3DB0C62B149E7B93F83
+    430173FEFABC8F3A2F6E680F5A236F07424B5BA86F293B7747000080000007A95F34FA2752E1588139BEB
+    68042D24A7B42D75EB012BD0A9A6F67984C92F4647B42F8B9D2EC0C94CD997CDA463C5067E488EFB39163
+    1C8EEB8820F6CCF5A0D00
+\end{spverbatim}
+
+Celui-ci peut être converti en QR Code pour pouvoir être envoyé à un joueur facilement.
+
+\begin{center}
+\includegraphics[width=0.4\linewidth]{report/qr.png}\\
+\end{center}
+
+Ce contrat peut ensuite facilement être lu par le protocole.
+
+\hfill
+\begin{verbatim}
+    Version: 1
+Type: 0
+Fee:
+        Type: 0
+        Amount: 12
+
+        Type: 1
+        Amount: 15
+
+Player One Placement:
+        Type: 2
+        Amount: 64
+
+        Type: 4
+        Amount: 32
+
+Player Two Placement:
+        Type: 5
+        Amount: 122
+
+        Type: 8
+        Amount: 2
+
+Player One Address: xmq5PkTAp21ajwLsM6VEuofwUjrNXeix6p
+Player Two Address: xeYEjQwU3Q35zCp4GCxHDPHWphHRh1FB1j
+Player One Nonce: 4
+Player One Sig: 213 156 45 29 161 242 104 131 48 60 37 65 243 95 64 106 220 183 234
+183 141 170 91 26 21 151 91 13 190 61 176 198 43 20 158 123 147 248 52 48 23 63 239
+171 200 243 162 246 230 128 245 162 54 240 116 36 181 186 134 242 147 183 116 112 0
+Player Two Nonce: 8
+Player Two Sig: 122 149 243 79 162 117 46 21 136 19 155 235 104 4 45 36 167 180 45 117
+235 1 43 208 169 166 246 121 132 201 47 70 71 180 47 139 157 46 192 201 76 217 151 205
+164 99 197 6 126 72 142 251 57 22 49 200 238 184 130 15 108 207 90 13 0
+\end{verbatim}
 
 \subsubsection{ThrowContract}
 Ce contrat doit être créé dès qu'un joueur lance sa bille. Il contient les informations du joueur (sa clé publique), son vecteur de lancé $(X, Z)$, le hash de la partie en cours, et sa signature.\\[1ex]
@@ -284,12 +359,46 @@ Un block est une liste de contrats. Une fois qu'un block est ajouté à la block
 
 Chaque block contient la racine du Merkle Tree (Merkle Root). C'est un arbre binaire qui contient les hash SHA-256 de tous les contrats du block. Celui-ci permet de vérifier rapidement si un contrat appartient à un block et asssure son authenticité lorsqu'il est transmis.
 
+\begin{verbatim}
+public MerkleTree(byte[][] data) {
+    List<MerkleNode> nodes = new List<MerkleNode>();
+    
+    // If tree branches is odd, duplicate last branch
+    if (data.Length % 2 != 0) {
+        data.Append(data[data.Length - 1]);
+    }
+
+    for (uint i = 0; i < data.Length; i++) {
+        MerkleNode node = new MerkleNode(null, null, data[i]);
+        nodes.Add(node);
+    }
+
+    for (uint i = 0; i < data.Length / 2; i++) {
+        List<MerkleNode> level = new List<MerkleNode>();
+        for (int j = 0; i < nodes.Count; j++) {
+            MerkleNode node = new MerkleNode(nodes[j], nodes[j + 1], null);
+            level.Add(node);
+        }
+
+        nodes = level;
+    }
+
+    Root = nodes[0];
+}
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=0.8\linewidth]{report/merkle.png}\\
+\end{center}
+
 \section{Minage}
 Le minage assure que la blockchain reste immuable. Pour ajouter un block à la blockchain, chaque mineur doit essayer de résoudre un puzzle. Ce puzzle est un hash du block qui doit être compris entre $1$ et la cible variable de difficulté. Un hash est un nombre aléatoire entre 1 et $2^{256} - 1$. Lorsqu'un mineur trouve un hash valide, le mineur forme un block avec un contrat qui lui permet de récupérer sa récompense. Cette récompense est le coeur de l'économie de BilleGateCoin (voir cahier des charges). Chaque ordinateur se synchronise avec la chaîne la plus longue, celle contenant le plus de block valides.
 
 Ce hash assure la stabilité de la chaîne car cette tâche est très difficile à résoudre pour un individuel, mais simple pour le réseau entier. De plus, si un mineur malveillant voulait altérer le contenu d'un block il devrait miner tous les blocks suivants jusqu'à posséder la chaîne la plus longue et ainsi être accepté par les nodes. Cette attaque est donc très peu problable.
 
-Dans cette implémentation du protocole BilleGateCoin, le minage s'effectue sur le processeur de l'utilisateur, ce qui n'est pas très optimisé. Une autre implémentation pourrait être effectuée pour être compatible avec les cartes graphiques modernes, ou mêmes sur des circuits intégrés tels que les ASIC. De plus, le C\# ne nous permet pas d'obtenir de grandes performances. \\
+\subsection{Implémentation}
+
+Dans cette implémentation de \bold{Aurèle} du protocole BilleGateCoin, le minage s'effectue sur le processeur de l'utilisateur, ce qui n'est pas très optimisé. Une autre implémentation pourrait être effectuée pour être compatible avec les cartes graphiques modernes, ou mêmes sur des circuits intégrés tels que les ASIC. De plus, le C\# ne nous permet pas d'obtenir de grandes performances. \\
 \filbreak
 \begin{verbatim}
 public (uint, byte[]) Run() {
@@ -320,9 +429,61 @@ public (uint, byte[]) Run() {
 }
 \end{verbatim}
 
+\subsection{Difficulté variable}
+La difficulté de minage est une variable qui assure que les mineurs ajoutent des blocks à la blockchain de manière régulière même si le nombre de mineurs, donc de puissance de calcul, augmente.
+ 
+Cette difficulté permet aux nodes de prévoir l’espace disque nécessaire pour stocker la blockchain et assure une économie stable (voir section suivante). Elle doit donc être ajustée régulièrement.
+
+Le \textit{block time} est une constante qui définit le temps qu’un mineur met pour ajouter un block à la chaîne.
+
+Sur la plateforme de jeu de billes, le block time doit être assez court (entre 20s et une minute) afin de permettre des exécutions de contrats (créations de parties, et lancés de billes) rapides. Par exemple, le Bitcoin utilise un block time de 10 minutes, et Ethereum un block time de 20 secondes.
+
+Un intervalle trop court peut causer des problèmes sur le délai de distribution des nouveaux blocks entre les nodes.
+
+La difficulté de minage est au départ 1. Celle-ci est ajustée tous les X
+blocks. Chaque node va calculer le temps que X block prennent pour être minés en théorie, divisé par la moyenne de temps que les X derniers blocks ont pris pour être minés. La difficulté est ainsi multipliée par ce coefficient.
+
+\[ nouvelle\ difficult\acute{e} = difficult\acute{e} \times \frac{temps\ attendu}{temps\ r\acute{e}el} \]
+
+\hfill
+\begin{verbatim}
+public static byte[] Target() {
+    	// No need to compute if blockchain height is below 180
+    	// Or height is not modulo 180
+    	if (Blockchain.Blockchain.Height < AdjustDifficultyBlocks ||
+            Blockchain.Blockchain.Height % AdjustDifficultyBlocks != 0) {
+            return Blockchain.Blockchain.LastTarget();
+    	}
+    	
+    	
+    	Iterator iterator = new Iterator();
+    	uint blocks = 0;
+    
+    	uint startTime = 0;
+    	uint endTime = 0;
+    
+    	while (iterator.CanIterate) {
+    		Blockchain.Block block = iterator.Next();
+    		if (blocks == 0) {
+    			endTime = block.BlockHeader.Timestamp;
+    		}
+    		if (blocks == AdjustDifficultyBlocks) {
+    			startTime = block.BlockHeader.Timestamp;
+    			break;
+    		}
+    		
+    		blocks++;
+    	}
+    
+    	uint expectedTime = Consensus.BlockTime * AdjustDifficultyBlocks;
+    
+    	BigInteger targetUint = new BigInteger(Blockchain.Blockchain.LastTarget(), true);
+    	return BigInteger.Multiply(targetUint, ((endTime - startTime) / expectedTime)).ToByteArray();
+}
+\end{verbatim}
 
 \section{Signatures}
-Les signatures permettent d'assurer l'authenticité d'un contrat et de la propriété des billes. Dans un système décentralisé, la manière de procéder à une authentification est celle de signature digitale.
+Les signatures permettent d'assurer l'authenticité d'un contrat et de la propriété des billes. Dans un système décentralisé, la manière de procéder à une authentification est celle de signature digitale. \bold{Aurèle} et \bold{Léo} ont travaillé sur cette tâche.
 
 Chaque contrat est signé par une clé privée, et chaque utilisateur peut simplement vérifier son authenticité en faisant correspondre la signature avec la clé publique du joueur.
 
@@ -368,7 +529,7 @@ public bool Sign(byte[] privateKey, uint playerTwoNonce) {
 \end{verbatim}
 
 \section{Persistance}
-La blockchain est une base de donnée qui ne cesse de croître en taille alors il est primordiale d'avoir un accès rapide à chaque block et contrat précédent tout en optimisant l'espace disque.
+La blockchain est une base de donnée qui ne cesse de croître en taille alors il est primordiale d'avoir un accès rapide à chaque block et contrat précédent tout en optimisant l'espace disque. \bold{Aurèle} était chargé de s'occuper de la persistance de la blockchain.
 
 BilleGateCoin utilise \bold{LevelDB} pour stocker les blocks. Cette base de données rapide clé/valeur a été inventé par Google en C++. Elle permet d'immortaliser les données de la chaîne et tenir l'inventaire de chaque joueur de BilleGateCoin, c'est le \bold{world state}.
 
@@ -378,10 +539,9 @@ DB.Put(block.Hash, block.Serialize());
 \end{verbatim}
 
 \section{Réseau}
-L'implémentation d'un protocole de communication est majeur dans une blockchain.
+L'implémentation d'un protocole de communication est majeur dans une blockchain. \bold{Léo} s'est occupé de la partie réseau et de la construction des messages via TCP/IP.
 
 \subsection{Architecture}
-
 
 \begin{center}
     \makebox[\textwidth]{\includegraphics[width=0.8\linewidth]{report/schema-net.png}}
@@ -436,7 +596,7 @@ Ils suivent l'architecture suivante:\\
 \end{tabular}\\[1ex]
 
 \section{Plateau de jeu}
-Le jeu de billes est traditionnellement relié à l’univers des enfants et de l’école, nous nous sommes donc rapidement mis d’accord sur la nature du plateau de jeu : une cour de récréation.
+Le jeu de billes est traditionnellement relié à l’univers des enfants et de l’école, nous nous sommes donc rapidement mis d’accord sur la nature du plateau de jeu : une cour de récréation. \bold{Raphäel} était chargé du design de la map.
 
 \subsection{Première version 9,90 Mo}
 Logiciels utilisés :
@@ -467,7 +627,7 @@ Cette version requiert encore un peu de travail, surtout par rapport aux grilles
 \end{center}
 
 \section{Design des billes}
-C’est une partie du travail qui évolue lentement mais sûrement depuis le début du projet, et qui a (depuis fin février environ) atteint un stade assez satisfaisant pour qu’elle puisse être considéré comme temporairement terminée. Le jeu compte aujourd’hui six classes de billes, cinq d’entre elles correspondent chacune à cinq modèles différents (chaque modèle étant lui même disponible en six couleurs différentes), et la dernière classe étant la classe « spéciale » qui ne contient aujourd’hui qu’un modèle.
+C’est une partie du travail qui évolue lentement mais sûrement depuis le début du projet, et qui a (depuis fin février environ) atteint un stade assez satisfaisant pour qu’elle puisse être considéré comme temporairement terminée. Le jeu compte aujourd’hui six classes de billes, cinq d’entre elles correspondent chacune à cinq modèles différents (chaque modèle étant lui même disponible en six couleurs différentes), et la dernière classe étant la classe « spéciale » qui ne contient aujourd’hui qu’un modèle. \bold{Raphäel} s'occupe du design et de la définition des billes.
 
 \subsection{Modèles 3D}
 Logiciels utilisés :
@@ -497,13 +657,30 @@ Ces miniatures ont pu servir à l’élaboration d’un tableau inventaire anim�
 
 
 \section{Site web}
-La construction du site web a été commencée par Aurèle. Il est fait en JavaScript, React.js et Sass.
+\subsection{Développement}
+La construction du site web a été commencé par Aurèle. Il est fait en JavaScript, React.js et Sass.
 Disponible à l'adresse \bold{www.scatteredcorp.tech}.\\[1ex]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{report/website.png}\\
 \end{center}
 
+Le type de design employé est "isometric". On peut y retrouver les valeurs du projet et un lien vers le code source du projet. Le bouton "Download" ne fonctionne pas encore.
+
+\subsection{Documentation}
+Une page documentation est disponible depuis le site principal en cliquant sur le bouton "DOCS". Cette page donne des informations sur la partie technique du protocole de BilleGateCoin tels que la construction d'un porte-feuille ou d'un message sur le réseau.
+
+\begin{center}
+\includegraphics[width=0.8\linewidth]{report/docs.png}\\
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\linewidth]{report/protocol.png}\\[2ex]
+\end{center}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{report/message.png}\\
+\end{center}
+
 \section{Conclusion}
-Le projet avance au rythme prévu et chaque membre est toujours aussi motivé.
+En conclusion, le groupe est toujours aussi motivé pour terminer notre projet ambitieux. Nous avons pris un peu de retard sur la partie jeu Unity car un membre de \bold{Scattered Corp}, Frédéric est parti. Le projet avance très bien dans la partie blockchain, et nous sommes tous très satisfait des résultats obtenus.
 
 \end{document}
