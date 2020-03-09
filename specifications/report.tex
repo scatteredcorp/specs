@@ -86,7 +86,7 @@ Quelques commandes ont été implémentées par \bold{Aurèle} :
 
 \begin{itemize}
     \item $init$ : initialise la blockchain
-    \item $signcontract$ : prend en argument un contrat en héxadécimal et le sign avec la clé privée du joueur
+    \item $signcontract$ : prend en argument un contrat en héxadécimal et le signe avec la clé privée du joueur
     \item $decodecontract$ : prend en argument un contract en héxadécimal et le décode
     \item $createwallet$ : prend en argument un mot de passe de chiffrement et génère un nouveau porte-feuille
     \item $deletewallet$ : supprime le porte-feuille
@@ -100,7 +100,7 @@ Quelques commandes ont été implémentées par \bold{Aurèle} :
 Un portefeuille consiste d'une clé privée et d'une clé publique correspondante. Celui-ci permet de signer des contrats sur la plate-forme and remplace le système basique d'email/mot de passe.
 La génération d'un portefeuille se fait en plusieurs étapes.
 
-ECDSA est l'algorithme cryptographique utilsé par BGC pour signer les contrats.
+ECDSA est l'algorithme cryptographique utilisé par BGC pour signer les contrats.
 BilleGateCoin utilise la courbe elliptique \bold{secp256k1}. Nous avons décidé d'utiliser le même algorithme de signature ainsi que la même courbe elliptique que le Bitcoin afin de pouvoir comparer nos résultats et également utiliser les normes déjà établies par la communauté.
 
 La création d'une clé privée, clé publique et d'une adresse a été réalisé par \bold{Léo}.
@@ -171,7 +171,7 @@ public byte[] Address() {
 \end{verbatim}
 
 \subsection{Chiffrement}
-Une clé privée doit être stockée et chiffrée. Pour se faire, nous avons adopter l'algorithme de chiffrement \bold{AES}. Lors de la création d'un nouveau porte-feuille, l'utilisateur est demandé d'entrer un mot de passe pour chiffrer sa clé privée. Celle-ci est sauvegardé en tant que $wallet.dat$ et ne peut être déchiffrée uniquement avec le mot de passe de l'utilisateur.
+Une clé privée doit être stockée et chiffrée. Pour ce faire, nous avons adopté l'algorithme de chiffrement \bold{AES}. Lors de la création d'un nouveau porte-feuille, l'utilisateur est demandé d'entrer un mot de passe pour chiffrer sa clé privée. Celle-ci est sauvegardé en tant que $wallet.dat$ et ne peut être déchiffrée uniquement avec le mot de passe de l'utilisateur.
 
 \section{Sérialisation}
 La sérialisation est le codage d'une structure de données dans un format qui peut être lu et restitué plus tard. BilleGateCoin doit passer par ce processus de sérialisation afin de pouvoir stocker les différents contrats et block de la blockchain sur un disque dur, de manière compacte et optimisée. \bold{Aurèle} a implémenté ces différentes fonctions.
@@ -202,7 +202,7 @@ Un placement de billes est une structure de données réutilisée dans plusieurs
 \end{tabular}
 
 \subsubsection{StartContract}
-Ce contrat doit être signé par les deux joueurs afin de créer une nouvelle partie. Celui-ci contient les billes mises en jeu des deux joueurs, leur adresse respective, et leur signature. La première bille du placement est celle jouée par le joueur.\\[1ex]
+Ce contrat doit être signé par les deux joueurs afin de créer une nouvelle partie. Celui-ci contient les billes mises en jeu des deux joueurs, leurs adresses respectives, et leur signature. La première bille du placement est celle jouée par le joueur.\\[1ex]
 
 \begin{tabular}{ |c|c|c|c|c|} 
  \hline
@@ -357,7 +357,7 @@ Un block est une liste de contrats. Une fois qu'un block est ajouté à la block
     \hline
 \end{tabular}\\[1ex]
 
-Chaque block contient la racine du Merkle Tree (Merkle Root). C'est un arbre binaire qui contient les hash SHA-256 de tous les contrats du block. Celui-ci permet de vérifier rapidement si un contrat appartient à un block et asssure son authenticité lorsqu'il est transmis.
+Chaque block contient la racine du Merkle Tree (Merkle Root). C'est un arbre binaire qui contient les hash SHA-256 de tous les contrats du block. Celui-ci permet de vérifier rapidement si un contrat appartient à un block et assure son authenticité lorsqu'il est transmis.
 
 \begin{verbatim}
 public MerkleTree(byte[][] data) {
@@ -392,13 +392,13 @@ public MerkleTree(byte[][] data) {
 \end{center}
 
 \section{Minage}
-Le minage assure que la blockchain reste immuable. Pour ajouter un block à la blockchain, chaque mineur doit essayer de résoudre un puzzle. Ce puzzle est un hash du block qui doit être compris entre $1$ et la cible variable de difficulté. Un hash est un nombre aléatoire entre 1 et $2^{256} - 1$. Lorsqu'un mineur trouve un hash valide, le mineur forme un block avec un contrat qui lui permet de récupérer sa récompense. Cette récompense est le coeur de l'économie de BilleGateCoin (voir cahier des charges). Chaque ordinateur se synchronise avec la chaîne la plus longue, celle contenant le plus de block valides.
+Le minage assure que la blockchain reste immuable. Pour ajouter un block à la blockchain, chaque mineur doit essayer de résoudre un puzzle. Ce puzzle est un hash du block qui doit être compris entre $1$ et la cible variable de difficulté. Un hash est un nombre aléatoire entre 1 et $2^{256} - 1$. Lorsqu'un mineur trouve un hash valide, le mineur forme un block avec un contrat qui lui permet de récupérer sa récompense. Cette récompense est le coeur de l'économie de BilleGateCoin (voir cahier des charges). Chaque ordinateur se synchronise avec la chaîne la plus longue, celle contenant le plus de blocks valides.
 
-Ce hash assure la stabilité de la chaîne car cette tâche est très difficile à résoudre pour un individuel, mais simple pour le réseau entier. De plus, si un mineur malveillant voulait altérer le contenu d'un block il devrait miner tous les blocks suivants jusqu'à posséder la chaîne la plus longue et ainsi être accepté par les nodes. Cette attaque est donc très peu problable.
+Ce hash assure la stabilité de la chaîne car cette tâche est très difficile à résoudre pour un individuel, mais simple pour le réseau entier. De plus, si un mineur malveillant voulait altérer le contenu d'un block il devrait miner tous les blocks suivants jusqu'à posséder la chaîne la plus longue et ainsi être accepté par les nodes. Cette attaque est donc très peu probable.
 
 \subsection{Implémentation}
 
-Dans cette implémentation de \bold{Aurèle} du protocole BilleGateCoin, le minage s'effectue sur le processeur de l'utilisateur, ce qui n'est pas très optimisé. Une autre implémentation pourrait être effectuée pour être compatible avec les cartes graphiques modernes, ou mêmes sur des circuits intégrés tels que les ASIC. De plus, le C\# ne nous permet pas d'obtenir de grandes performances. \\
+Dans cette implémentation d'\bold{Aurèle} du protocole BilleGateCoin, le minage s'effectue sur le processeur de l'utilisateur, ce qui n'est pas très optimisé. Une autre implémentation pourrait être effectuée pour être compatible avec les cartes graphiques modernes, ou mêmes sur des circuits intégrés tels que les ASIC. De plus, le C\# ne nous permet pas d'obtenir de grandes performances. \\
 \filbreak
 \begin{verbatim}
 public (uint, byte[]) Run() {
@@ -489,7 +489,7 @@ Chaque contrat est signé par une clé privée, et chaque utilisateur peut simpl
 
 Pour signer un contrat il suffit de le sérialiser, effectuer un hash SHA-256 de celui-ci et signer ce hash. La signature est concaténée au contrat sérialisé et peut être diffusé sur la blockchain.
 
-Dans le cas d'un contrat mettant en relation deux joueurs tels qu'un StartContract ou un TransactionContract, celui-ci devra être signé par les deux joueurs séquentiellement. Le premier joueur hash le contrat, signe ce contrat et ajoute sa signature au contrat. Le deuxième joueur hash le contrat signé et ajoute sa signature. Ce contrat à double signature peut maintenant être publié sur la blockchain.
+Dans le cas d'un contrat mettant en relation deux joueurs tel qu'un StartContract ou un TransactionContract, celui-ci devra être signé par les deux joueurs séquentiellement. Le premier joueur hash le contrat, signe ce contrat et ajoute sa signature au contrat. Le deuxième joueur hash le contrat signé et ajoute sa signature. Ce contrat à double signature peut maintenant être publié sur la blockchain.
 
 \filbreak
 \begin{verbatim}
@@ -529,7 +529,7 @@ public bool Sign(byte[] privateKey, uint playerTwoNonce) {
 \end{verbatim}
 
 \section{Persistance}
-La blockchain est une base de donnée qui ne cesse de croître en taille alors il est primordiale d'avoir un accès rapide à chaque block et contrat précédent tout en optimisant l'espace disque. \bold{Aurèle} était chargé de s'occuper de la persistance de la blockchain.
+La blockchain est une base de données qui ne cesse de croître en taille alors il est primordial d'avoir un accès rapide à chaque block et contrat précédent tout en optimisant l'espace disque. \bold{Aurèle} était chargé de s'occuper de la persistance de la blockchain.
 
 BilleGateCoin utilise \bold{LevelDB} pour stocker les blocks. Cette base de données rapide clé/valeur a été inventé par Google en C++. Elle permet d'immortaliser les données de la chaîne et tenir l'inventaire de chaque joueur de BilleGateCoin, c'est le \bold{world state}.
 
@@ -557,17 +557,17 @@ Le réseau est constitué de:
 
 Une blockchain est basée sur la communication P2P entre les nodes.
 Cependant, les clients utilisent la plupart du temps un routeur NAT dont les ports sont fermés.
-Il faut donc des supernodes intermediaires afin d'initialiser une connection P2P.
+Il faut donc des supernodes intermédiaires afin d'initialiser une connexion P2P.
 On utilisera la méthode du hole punching pour ouvrir les ports des clients.
 
 \subsection{Supernodes}
 
-Les supernodes auront des addresses IP fixes, hardcodées dans la blockchain.
+Les supernodes auront des adresses IP fixes, encodées dans le protocole.
 Il faut au minimum une supernode en ligne pour garantir le fonctionnement du réseau.
 Les supernodes recensent toutes les nodes en ligne.
-Toute initiation de connection P2P entre nodes se fait en passant par une supernode:
+Toute initiation de connexion P2P entre nodes se fait en passant par une supernode:
 \begin{itemize}
-    \item La node initiant la connection contacte la supernode pour obtenir l'addresse IP de la node visée
+    \item La node initiant la connexion contacte la supernode pour obtenir l'adresse IP de la node visée
     \item Elle envoie ensuite un paquet à la cible, qui sera rejeté par le pare-feu. Cette étape a pour but d'ouvrir un port acceptant les paquets venant de la cible
     \item Elle envoie l'ID du port nouvellement ouvert à la supernode, qui le communique à la cible
     \item La cible envoie un paquet au port ouvert, qui cette fois est accepté
@@ -627,7 +627,7 @@ Cette version requiert encore un peu de travail, surtout par rapport aux grilles
 \end{center}
 
 \section{Design des billes}
-C’est une partie du travail qui évolue lentement mais sûrement depuis le début du projet, et qui a (depuis fin février environ) atteint un stade assez satisfaisant pour qu’elle puisse être considéré comme temporairement terminée. Le jeu compte aujourd’hui six classes de billes, cinq d’entre elles correspondent chacune à cinq modèles différents (chaque modèle étant lui même disponible en six couleurs différentes), et la dernière classe étant la classe « spéciale » qui ne contient aujourd’hui qu’un modèle. \bold{Raphäel} s'occupe du design et de la définition des billes.
+C’est une partie du travail qui évolue lentement mais sûrement depuis le début du projet, et qui a (depuis fin février environ) atteint un stade assez satisfaisant pour qu'elle puisse être considérée comme temporairement terminée. Le jeu compte aujourd’hui six classes de billes, cinq d’entre elles correspondent chacune à cinq modèles différents (chaque modèle étant lui-même disponible en six couleurs différentes), et la dernière classe étant la classe « spéciale » qui ne contient aujourd’hui qu’un modèle. \bold{Raphäel} s'occupe du design et de la définition des billes.
 
 \subsection{Modèles 3D}
 Logiciels utilisés :
@@ -636,13 +636,13 @@ Logiciels utilisés :
     \item Blender 2.81 (export en .fbx vers Unity 2019.3.4
 \end{itemize}
 
-Les modèles de billes actuels sont tous des modèles originaux créés pour l’occasion, un autre modèle de test avait été pris d’internet mais n’a pas pris place dans la collection finale.
+Les modèles de billes actuelles sont tous des modèles originaux créés pour l’occasion, un autre modèle de test avait été pris d’internet mais n’a pas pris place dans la collection finale.
 
 \begin{center}
     \includegraphics[width=0.8\linewidth]{report/marbles.png}\\
 \end{center}
 
-Les modèles « pèsent » respectivement 61 Ko, 210 Ko, 53 Ko, 127 Ko et 50 Ko (de haut en bas). Malgré les efforts qui ont été faits (et qui continuent d’être faits) pour rendre les 	ressources les plus légères possibles, certains modèles sont nettement plus lourds que les autres mais cela ne semble pour l’instant pas trop affecter les performances du jeu, ce n’est donc pas ici considéré comme un problème.
+Les modèles « pèsent » respectivement 61 Ko, 210 Ko, 53 Ko, 127 Ko et 50 Ko (de haut en bas). Malgré les efforts qui ont été faits (et qui continuent d’être faits) pour rendre les 	ressources les plus légères possible, certains modèles sont nettement plus lourds que les autres mais cela ne semble pour l’instant pas trop affecter les performances du jeu, ce n’est donc pas ici considéré comme un problème.
 
 \subsection{Icônes}
 Logiciels utilisés :
@@ -653,7 +653,7 @@ Logiciels utilisés :
 
 Les fichiers 3D des billes ont d’abord reçu un traitement qui consistait à normaliser leurs noms (sous la forme « [modèle] - [couleur] »).
 Ensuite, un deuxième traitement a été appliqué sur le groupe de fichiers : deux miniatures, une en .png (sur fond blanc) et l’autre en .gif (animation rotative antihoraire – 24 fps – fond blanc) ont été créées pour chaque bille.
-Ces miniatures ont pu servir à l’élaboration d’un tableau inventaire animé qui viendra enjoliver le site internet, et serviront également sûrement pour les menus du jeu (un tableau de GIF est moins gourmand en ressources que le même tableau de fichiers 3D complets).
+Ces miniatures ont pu servir à l’élaboration d’un tableau inventaire animé qui viendra enjoliver le site internet, et serviront également sûrement pour les menus du jeu (un tableau de GIF est moins gourmand en ressources que le même tableau de fichiers 3D complet).
 
 
 \section{Site web}
